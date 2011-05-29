@@ -1,0 +1,127 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Question 1 Web programming</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            @import "../css/sojoe_default.css";
+        </style>
+
+        <script type="text/javascript" src="jsp/utility.js">
+
+        </script>
+        <script>
+
+        </script>
+
+    </head>
+    <body>
+        <div class="HP_title"><h1>Question 4 Webprogramming examples</h1></div>
+        <div class="main_menu">
+            <ol>
+                <li><a href="../index.html"> Index </a></li>
+                <li><a href="Q1.html"> Question1 </a></li>
+                <li><a href="Q2.html"> Question2 </a></li>
+                <li><a href="Q3.html"> Question3 </a></li>
+                <li><a href="Q4.html"> Question4 </a></li>
+                <li><a href="Q5.html"> Question5 </a></li>
+                <li><a href="Q6.html"> Question6 </a></li>
+            </ol>
+        </div>
+        <div class="mainwindow"> 
+            <div><h2>Loading the XML into the DOM:</h2></div>
+            Type in the path to the XML you want to load: 
+            <input id="file" value="books.xml">  
+            <input id="taginput" value="title">
+                   <input type="button" value="Print Titles" onClick= "writeXML(document.getElementById('file').value,
+                       document.getElementById('taginput').value);">
+            <div id="testing"></div>
+
+            <ul id="testinglist">
+
+            </ul>
+            <div><input type="button" value="Clear list" onClick= "clearList();"></div>
+
+            <h3>Source Code:</h3>
+            <h4>HTML:</h4>
+            <textarea class="source">          
+<input id="file" value="books.xml">  
+<input id="taginput" value="title">
+       <input type="button" value="Print Titles" onClick= "writeXML(document.getElementById('file').value,
+           document.getElementById('taginput').value);">
+<div id="testing"></div>
+
+<ul id="testinglist">
+
+</ul>
+<div><input type="button" value="Clear list" onClick= "clearList();"></div>
+            </textarea>
+            <h4>Javascript:</h4>
+            <h5>Loading the XML file:</h5>
+            <textarea class="source">         
+function loadXMLDoc(dname)
+{
+    if (window.XMLHttpRequest)
+    {
+        xhttp=new XMLHttpRequest();
+    }
+    else
+    {
+        xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.open("GET",dname,false);
+    xhttp.send();
+    return xhttp.responseXML;
+}
+            </textarea>
+
+            <h5>Writing the tags</h5>
+            <textarea class="source">         
+function writeXML(title, tag){    
+    
+    var parent = document.getElementById('testing');  
+    var newheading = document.createElement("H4");
+    newheading.innerHTML = "Printing xml nodes!"; 
+    newheading.id = 'printheadline';
+    
+    
+    if(document.getElementById('printheadline') == null){
+        parent.appendChild(newheading);
+    }
+    var list = document.getElementById('testinglist');
+    
+    xmlDoc = loadXMLDoc(title);
+    //for(i=0; i<5; i++){    
+    x=xmlDoc.getElementsByTagName(tag);
+    
+    for (i=0;i<x.length;i++)
+    {         
+        var newitem = document.createElement("LI");
+        newitem.innerHTML = x[i].childNodes[0].nodeValue;
+        list.appendChild(newitem);
+    }   
+}
+            </textarea>
+                        <h5>Clearing the list and heading:</h5>
+            <textarea class="source">         
+function clearList(){
+    var list = document.getElementById('testinglist');
+    var x = list.childNodes;
+    for ( var i = 0; i < x.length; ++i )
+    {        
+        x[i].parentNode.removeChild(x[i]);
+        i--;
+    }    
+    
+    var heading = document.getElementById('printheadline');
+    heading.parentNode.removeChild(heading);   
+   
+}
+            </textarea>
+        </div>
+    </body>
+</html>

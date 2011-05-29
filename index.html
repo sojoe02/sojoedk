@@ -1,0 +1,53 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sojoes StartPage</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+            @import "css/sojoe_default.css";
+        </style>
+
+
+        <script type="text/javascript"
+                src="http://maps.google.com/maps/api/js?sensor=true">
+        </script>
+        <script type="text/javascript">
+            function initialize() {
+                var latlng = new google.maps.LatLng(55.416544,10.371094);
+                
+                var myOptions = {
+                    zoom: 8,
+                    center: latlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("map_canvas"),
+                myOptions);
+            }
+
+        </script>
+    </head>
+
+    <body onload="initialize()">
+        <div class="HP_title"><h1>The Sojoe Homepage</h1></div>
+
+        <div class="main_menu">
+            <ol>
+                <li><a href="Webprogramming/Q1.html"> Question1 </a></li>
+                <li><a href="Webprogramming/Q2.html"> Question2 </a></li>
+                <li><a href="Webprogramming/Q3.html"> Question3 </a></li>
+                <li><a href="Webprogramming/Q4.html"> Question4 </a></li>
+                <li><a href="Webprogramming/Q5.html"> Question5 </a></li>
+                <li><a href="Webprogramming/Q6.html"> Question6 </a></li>
+            </ol>
+        </div>
+        <div class="mainwindow">
+            <div><h2>This is some google map, yay</h2></div>
+            <div id="map_canvas" > </div>
+        </div>
+    </body>
+</html>

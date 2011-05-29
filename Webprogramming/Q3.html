@@ -1,0 +1,84 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Question 1 Web programming</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            @import "../css/sojoe_default.css";
+        </style>
+        <script type="text/javascript" src="jsp/utility.js">
+
+        </script>
+
+    </head>
+    <body>
+        <div class="HP_title"><h1>Question 3 Webprogramming examples</h1></div>
+        <div class="main_menu">
+            <ol>
+                <li><a href="../index.html"> Index </a></li>
+                <li><a href="Q1.html"> Question1 </a></li>
+                <li><a href="Q2.html"> Question2 </a></li>
+                <li><a href="Q3.html"> Question3 </a></li>
+                <li><a href="Q4.html"> Question4 </a></li>
+                <li><a href="Q5.html"> Question5 </a></li>
+                <li><a href="Q6.html"> Question6 </a></li>
+            </ol>
+        </div>
+        <div class="mainwindow"> 
+            <div><h2>Getting Servertime via Ajax</h2></div>
+            <div>
+                <form name='myForm'>
+                    Name: <input type='text' onChange="ajaxFunction();" name='username' /> <br />
+                    Time: <input type='text' name='time' />
+                </form>
+            </div>
+            <div>
+                <h3>Source Code:</h3>
+                <h4>Javascript:</h4>
+                <textarea class="source">           
+function ajaxFunction(){
+	var ajaxRequest;  // The variable that makes Ajax possible!
+	
+	try{
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	} catch (e){
+		// Internet Explorer Browsers
+		try{
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try{
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e){
+				// Something went wrong
+				alert("Your browser broke!");
+				return false;
+			}
+		}
+	}
+	// Create a function that will receive data sent from the server
+	ajaxRequest.onreadystatechange = function(){
+		if(ajaxRequest.readyState == 4){
+			document.myForm.time.value = ajaxRequest.responseText;
+		}
+	}
+	ajaxRequest.open("GET", "servertime.php", true);
+	ajaxRequest.send(null); 
+}
+                </textarea>     
+
+                <h4>PHP:</h4>
+                <textarea class="source">           
+<?php
+echo date("H:i:s");
+?>
+
+                </textarea>  
+            </div>
+        </div>
+    </body>
+</html>
