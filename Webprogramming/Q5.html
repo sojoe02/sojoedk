@@ -9,7 +9,14 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css">
             @import "../css/sojoe_default.css";
+            @import "../css/flikrcanvas.css";
         </style>
+        <script type="text/javascript" src="jsp/utility.js">
+
+        </script>
+        <script type="text/javascript" src="../jsp/jquery-1.6.1.js">
+
+        </script>
 
     </head>
     <body>
@@ -25,8 +32,30 @@ and open the template in the editor.
                 <li><a href="Q6.html"> Question6 </a></li>
             </ol>
         </div>
-                <div class="mainwindow"> 
-        <div>TODO write content</div>
+        <div class="mainwindow"> 
+            <h2>Getting images from flikr via Ajax and jQuery</h2>
+            <h3>Search for public images:</h3>
+            <div>
+                Type in a search:
+                <input id="subject" value="dog">
+                <input type="button" value="Get images (jQuery)" onClick= "getFlikrPulicData(document.getElementById('subject').value);">
+            </div>            
+
+            <div id="imageheader"></div>
+            <h3>Load personal images:</h3>
+            <input type="button" value="Load my Images" onClick= "getFlikrAPIData();">
+            <div id="imageheader2"></div>
+            <h2>Getting images from flikr via Ajax and PHP</h2>
+            <form name='myFormPHP'>
+                Type in a search: <input type="text" id="searchPHP" value="dog" />
+                <input type='button' value="Get images (PHP)" 
+                       onClick="ajaxFunctionFlikr(document.getElementById('searchPHP').value);" /> 
+
+            </form>
+
+            <div id="phpimages"></div>
+            <textarea class="output" id="PHPoutput">   
+            </textarea>
         </div>
     </body>
 </html>

@@ -105,31 +105,128 @@ function clearList(){
 }
 
 function ajaxFunction(){
-	var ajaxRequest;  // The variable that makes Ajax possible!
+    var ajaxRequest;  // The variable that makes Ajax possible!
 	
-	try{
-		// Opera 8.0+, Firefox, Safari
-		ajaxRequest = new XMLHttpRequest();
-	} catch (e){
-		// Internet Explorer Browsers
-		try{
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		} catch (e) {
-			try{
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch (e){
-				// Something went wrong
-				alert("Your browser broke!");
-				return false;
-			}
-		}
-	}
-	// Create a function that will receive data sent from the server
-	ajaxRequest.onreadystatechange = function(){
-		if(ajaxRequest.readyState == 4){
-			document.myForm.time.value = ajaxRequest.responseText;
-		}
-	}
-	ajaxRequest.open("GET", "servertime.php", true);
-	ajaxRequest.send(null); 
+    try{
+        // Opera 8.0+, Firefox, Safari
+        ajaxRequest = new XMLHttpRequest();
+    } catch (e){
+        // Internet Explorer Browsers
+        try{
+            ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+            try{
+                ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e){
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+        }
+    }
+    // Create a function that will receive data sent from the server
+    ajaxRequest.onreadystatechange = function(){
+        if(ajaxRequest.readyState == 4){
+            document.myForm.time.value = ajaxRequest.responseText;
+        }
+    }
+    ajaxRequest.open("GET", "servertime.php", true);
+    ajaxRequest.send(null); 
 }
+
+
+
+
+
+function getFlikrPulicData(item){
+    var url = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+    //jQuery().getJSON(.getJSON("http://api.flickr.com/services/feeds/groups_pool.gne?id=998875@N22&lang=en-us&format=json&jsoncallback=?", displayImages);, displayImages);
+    jQuery.getJSON(url, {
+        tags:item,
+        tagmode:"any",
+        format:"json"
+    }, displayImages);
+    
+}
+
+function displayImages(data)
+{
+    //reset with jQuery:
+    //jQuery('#pupimages').remove();
+    //do a reset of the canvas regular way:
+    var canvastemp = document.getElementById('pupimages');
+    
+    if (canvastemp != null)        {
+        canvastemp.parentNode.removeChild(canvastemp);
+    }
+    //document.getElementById('pupimages').parentNode.removeChild(child)    
+    var newcanvas = document.createElement('div');
+    newcanvas.id = 'pupimages';
+    document.getElementById('imageheader').appendChild(newcanvas);
+    //document.appendChild(newcanvas);    
+    
+    jQuery.each(data.items, function(i,item){
+        jQuery("<img/>").attr("src", item.media.m).appendTo("#pupimages");
+        if ( i == 2 ) return false; //take only three images
+    });
+}
+
+function getFlikrAPIData(){
+    var apiKey = '233d3164af0d4da4ac09816038a5315a';
+    var url2 = 'http://api.flickr.com/services/feeds/photos_public.gne?id=63154520@N05&api_key=' + apiKey + '&format=json&jsoncallback=?';
+                            
+    jQuery.getJSON( url2 , displayImagesAPI);
+    
+}
+
+function displayImagesAPI(data)
+{
+    var canvastemp = document.getElementById('apiimages');
+    
+    if (canvastemp != null)        {
+        canvastemp.parentNode.removeChild(canvastemp);
+    }
+    //document.getElementById('pupimages').parentNode.removeChild(child)    
+    var newcanvas = document.createElement('div');
+    newcanvas.id = 'apiimages';
+    document.getElementById('imageheader2').appendChild(newcanvas);
+    
+    jQuery.each(data.items, function(i,item){
+        jQuery("<img/>").attr("src", item.media.m).appendTo("#apiimages");
+    });
+}
+
+
+
+function ajaxFunctionFlikr(item){
+    var ajaxRequest;  // The variable that makes Ajax possible!
+    var seek = "param="+item;
+	
+    try{
+        // Opera 8.0+, Firefox, Safari
+        ajaxRequest = new XMLHttpRequest();
+    } catch (e){
+        // Internet Explorer Browsers
+        try{
+            ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+            try{
+                ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e){
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+        }
+    }
+    // Create a function that will receive data sent from the server
+    ajaxRequest.onreadystatechange = function(){
+        if(ajaxRequest.readyState == 4){
+            document.getElementById('PHPoutput').value = ajaxRequest.responseText;
+            document.getElementById('phpimages').innerHTML = ajaxRequest.responseText;
+        }
+    }
+    ajaxRequest.open("GET", "getFlikr.php?"+ seek, true);
+    ajaxRequest.send(null); 
+}
+

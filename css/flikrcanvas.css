@@ -1,0 +1,20 @@
+/* 
+    Document   : flikrcanvas
+    Created on : 02-06-2011, 12:57:29
+    Author     : Zagadka
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+#pupimages img{ 
+    height: 200px; 
+}/*loat: left; }*/
+
+#apiimages img{ height: 200px}
+
+#phpimages img{ height: 200px}
