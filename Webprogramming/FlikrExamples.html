@@ -1,0 +1,215 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flikr Examples</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            @import "../css/sojoe_default.css";
+            @import "../css/flikrcanvas.css";
+        </style>
+        <script type="text/javascript" src="jsp/utility.js">
+
+        </script>
+        <script type="text/javascript" src="../jsp/jquery-1.6.1.js">
+
+        </script>
+
+    </head>
+    <body>
+        <div class="HP_title"><h1>Flikr Examples</h1></div>
+        <div class="main_menu">
+            <ol>
+                <li><a href="../index.html"> Index </a></li>
+                <li><a href="JavascriptExamples.html"> Javascript </a></li>
+                <!--                <li><a href="Q2.html"> Question2 </a></li>-->
+                <li><a href="AjaxSimple.html"> Ajax </a></li>
+                <li><a href="XMLDOM.html"> XML </a></li>
+                <li><a href="FlikrExamples.html"> Flikr </a></li>
+                <!--                <li><a href="Q6.html"> Question6 </a></li>-->
+            </ol>
+        </div>
+        <div class="mainwindow"> 
+            <h2>Getting images from flikr via jQuery</h2>
+            <h3>Search for public images:</h3>
+            <div>
+                Type in a search:
+                <input id="subject" value="dog">
+                <input type="button" value="Get images (jQuery)" onClick= "getFlikrPulicData(document.getElementById('subject').value);">
+            </div> 
+            
+
+            <div id="imageheader"></div>
+            <h3>Source Code:</h3>
+                <h4>Javascript:</h4>
+                <textarea class="sourcelong">           
+function getFlikrPulicData(item){
+    var url = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+    //jQuery().getJSON(.getJSON("http://api.flickr.com/services/feeds/groups_pool.gne?id=998875@N22&lang=en-us&format=json&jsoncallback=?", displayImages);, displayImages);
+    jQuery.getJSON(url, {
+        tags:item,
+        tagmode:"any",
+        format:"json"
+    }, displayImages);
+    
+}
+
+function displayImages(data)
+{
+    //reset with jQuery:
+    //jQuery('#pupimages').remove();
+    //do a reset of the canvas regular way:
+    var canvastemp = document.getElementById('pupimages');
+    
+    if (canvastemp != null)        {
+        canvastemp.parentNode.removeChild(canvastemp);
+    }
+    //document.getElementById('pupimages').parentNode.removeChild(child)    
+    var newcanvas = document.createElement('div');
+    newcanvas.id = 'pupimages';
+    document.getElementById('imageheader').appendChild(newcanvas);
+
+    jQuery.each(data.items, function(i,item){
+        jQuery("<img/>").attr("src", item.media.m).appendTo("#pupimages");
+        if ( i == 2 ) return false; //take only three images
+    });
+}
+                </textarea>     
+            <h3>Load personal images:</h3>
+            <input type="button" value="Load my Images" onClick= "getFlikrAPIData();">
+            <div id="imageheader2"></div>
+            <h2>Getting images from flikr via Ajax and PHP</h2>
+            <form name='myFormPHP'>
+                Type in a search: <input type="text" id="searchPHP" value="dog" />
+                <input type='button' value="Get images (PHP)" 
+                       onClick="ajaxFunctionFlikr();" /> 
+
+            </form>
+
+            <div id="phpimages"></div>
+            <textarea class="output" id="PHPoutput">   
+            </textarea>
+                        <h3>Source Code:</h3>
+                <h4>Javascript:</h4>
+                <textarea class="source"> 
+function ajaxFunctionFlikr(){
+    var ajaxRequest;  // The variable that makes Ajax possible!
+    var item = document.getElementById('searchPHP').value
+    var seek = "param="+item;
+    var func = "func=getpics";
+	
+    try{
+        // Opera 8.0+, Firefox, Safari
+        ajaxRequest = new XMLHttpRequest();
+    } catch (e){
+        // Internet Explorer Browsers
+        try{
+            ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+            try{
+                ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e){
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+        }
+    }
+    // Create a function that will receive data sent from the server
+    ajaxRequest.onreadystatechange = function(){
+        if(ajaxRequest.readyState == 4){
+            document.getElementById('PHPoutput').value = ajaxRequest.responseText;
+            document.getElementById('phpimages').innerHTML = ajaxRequest.responseText;
+        }
+    }
+    ajaxRequest.open("GET", "getFlikr.php?"+ seek + "&"+func, true);
+    ajaxRequest.send(null); 
+}       
+
+                </textarea>     
+
+                <h4>PHP:</h4>
+                <textarea class="sourcelong" >           
+class Flickr {
+
+    private $apiKey = '233d3164af0d4da4ac09816038a5315a';
+
+    public function __construct() {        
+    }
+
+    public function search($query = null) {
+        $search = 'http://flickr.com/services/rest/?method=flickr.photos.search&api_key=' . $this->apiKey . '&text=' . urlencode($query) . '&per_page=5&format=php_serial';
+        $result = file_get_contents($search);
+        $result = unserialize($result);
+        return $result;
+    }
+}
+
+$Flickr = new Flickr;
+$data = $Flickr->search($_GET['param']);
+
+switch ($_GET['func']) {
+    case 'gerRest':
+        flikrRestOutput();
+        break;
+    case 'getpics':
+        getPictures();
+        break;
+    default:
+        
+}
+
+function getPictures() {
+    $data = $GLOBALS['data'];
+    
+    foreach ($data['photos']['photo'] as $photo) {
+        // the image URL becomes somthing like 
+        // http://farm{farm-id}.static.flickr.com/{server-id}/{id}_{secret}.jpg  
+        echo '<img src="http://farm' . $photo["farm"] . '.static.flickr.com/' . $photo["server"] . '/' . $photo["id"] . '_' . $photo["secret"] . '.jpg">';
+    }
+}
+                </textarea>  
+            <h2>Printing out the REST response via Jquery and PHP:</h2>
+            <form name='printJSON'>
+                Click to print the result in JSON:
+                <input type='button' value="Get imagedata" 
+                       onClick="ajaxFunctionFlikrRest();" /> 
+            </form>
+                        <textarea class="output" id="Restoutput">   
+            </textarea>
+            
+            <h3>Source Code:</h3>
+                <h4>Javascript:</h4>
+                <textarea class="source">           
+function ajaxFunctionFlikrRest(){
+
+    var func = "gerRest"
+    var item = document.getElementById('searchPHP').value
+    
+    jQuery.get("getFlikr.php",{
+        func : func, 
+        param: item
+    },
+    function(data){
+        document.getElementById('Restoutput').value = data.toString();
+    });
+    
+}
+                </textarea>     
+
+                <h4>PHP:</h4>
+                <textarea class="source">           
+function flikrRestOutput() {
+    echo date("H:i:s");
+    $data = $GLOBALS['data'];
+    echo json_encode($data);
+}
+                </textarea>  
+            
+
+        </div>
+    </body>
+</html>

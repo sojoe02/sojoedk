@@ -12,9 +12,10 @@
 */
 
 #pupimages img{ 
-    height: 200px; 
+    height: 200px;
 }/*loat: left; }*/
 
-#apiimages img{ height: 200px}
+#apiimages img{ height: 200px;
+}
 
-#phpimages img{ height: 200px}
+#phpimages img{ height: 200px;}

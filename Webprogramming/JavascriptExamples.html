@@ -1,0 +1,232 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript examples</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            @import "../css/sojoe_default.css";
+        </style>
+        <script type="text/javascript" src="jsp/utility.js">
+
+        </script>
+                <script type="text/javascript" src="jsp/events.js">
+
+        </script>
+    </head>
+    <body>
+        <div class="HP_title"><h1>Javascript manipulation</h1></div>
+        <div class="main_menu">
+            <ol>
+                <li><a href="../index.html"> Index </a></li>
+                <li><a href="JavascriptExamples.html"> Javascript </a></li>
+                <!--                <li><a href="Q2.html"> Question2 </a></li>-->
+                <li><a href="AjaxSimple.html"> Ajax </a></li>
+                <li><a href="XMLDOM.html"> XML </a></li>
+                <li><a href="FlikrExamples.html"> Flikr </a></li>
+                <!--                <li><a href="Q6.html"> Question6 </a></li>-->
+            </ol>
+        </div>        
+        <div class="mainwindow">        
+            <div><h2>Simple mouse-over manipulation (BAD FORM):</h2></div>
+            <img src="img/p6_button1.gif"
+                 onmouseover="this.src='img/p6_button2.gif';" 
+                 onmousedown="this.src='img/p6_button3.gif';"
+                 onmouseout ="this.src='img/p6_button1.gif';" 
+                 onmouseup  ="this.src='img/p6_button2.gif';">
+            <div>
+                <h3>Source Code:</h3>
+                <h4>Html:</h4>
+                <textarea class="sourceshort">         
+<img src="img/p6_button1.gif"
+ onmouseover="this.src='img/p6_button2.gif';" 
+ onmousedown="this.src='img/p6_button3.gif';"
+ onmouseout ="this.src='img/p6_button1.gif';" 
+ onmouseup  ="this.src='img/p6_button2.gif';">
+                </textarea>
+            </div>
+            <div><h2>Simple mouse-over manipulation using javascript events:</h2></div>
+            <div id="imageJS"> </div>
+             <h3>Source Code:</h3>
+             <h4>Html:</h4>
+             <textarea class="sourceshort">         
+<div id="imageJS"> </div>
+                </textarea>
+             <h4>Javascript:</h4>
+                <textarea class="sourcelong">         
+  window.onload = load;
+
+function loadimage(item){
+    var image = document.getElementById('mutatingImage')
+    switch(item){
+        case 'clicked':
+            image.setAttribute('src', 'img/p6_button3.gif');
+            break;
+        case 'hoover':
+            image.setAttribute('src', 'img/p6_button2.gif');
+            break;
+        case 'release':
+            image.setAttribute('src', 'img/p6_button2.gif');
+            break;
+        case 'nonhoover':
+            image.setAttribute('sec', 'img/p6_button1.gif');
+        default:
+            image.setAttribute('src', 'img/p6_button1.gif');
+    }       
+}
+
+function load() {
+        
+    var image    = document.createElement('IMG');
+    
+    image.setAttribute('src', 'img/p6_button1.gif');
+    image.id = 'mutatingImage';
+    
+    var el = document.getElementById("imageJS");
+    el.appendChild(image);
+    
+    el.addEventListener("mousedown", function(){
+        loadimage('clicked')
+    }, false);
+    el.addEventListener("mouseover", function(){
+        loadimage('hoover')
+    }, false);
+    el.addEventListener("mouseup", function(){
+        loadimage('release')
+    }, false);
+    el.addEventListener("mouseout", function(){
+        loadimage('nonhoover')
+    }, false);
+                </textarea>
+            
+            
+            
+ <div><h2>Printing out the date:</h2></div>
+            <button type="button" onclick="displayDate()">Display Date</button>
+            <div id="showdate">   
+            </div>
+           
+                        <h3>Source Code:</h3>
+            <h4>Javascript:</h4>
+            <textarea class="sourceshort" >         
+function displayDate()
+{
+document.getElementById("showdate").innerHTML=Date();
+}
+            </textarea>
+            <div><h2>Adding and removing content from a page dynamicly:</h2></div>
+            <table>
+                <tbody id="contacts">
+                    <tr>
+                        <td colspan="3"><a href="javascript:addContact();">Add a Contact</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Name</td>
+                        <td>Email</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <h3>Source Code:</h3>
+                <h4>Javascript:</h4>
+                <textarea class="source">         
+var inputs = 0;
+function addContact(){
+        var table = document.getElementById('contacts');
+        var tr    = document.createElement('TR');
+        var td1   = document.createElement('TD');
+        var td2   = document.createElement('TD');
+        var td3   = document.createElement('TD');
+        var inp1  = document.createElement('INPUT');
+        var inp2  = document.createElement('INPUT');
+
+        if(inputs>=0){
+                var img     = document.createElement('IMG');
+                img.setAttribute('src', 'img/p6_delete.gif');
+                img.onclick = function(){
+                        removeContact(tr);
+                }
+                td1.appendChild(img);
+        }
+
+        inp1.setAttribute("Name", "Name" +inputs);
+        inp2.setAttribute("Name", "Email"+inputs);
+
+        table.appendChild(tr);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        td2.appendChild(inp1);
+        td3.appendChild(inp2);
+
+        inputs++;
+}
+
+function removeContact(tr){
+        tr.parentNode.removeChild(tr);
+                }
+                </textarea>
+            </div>
+            <div><h2>Manipulating a tables styling via the DOM:</h2></div>
+            <div> 
+                <table id="singletable">
+                    <tbody id="singletablebody"> 
+                        <tr id="trtest"><td>Row 1</td></tr>
+                        <tr><td>Row 2</td></tr>
+                        <tr><td>Row 3</td></tr>
+                        <tr><td>Row 4</td></tr>
+                        <tr><td>Row 5</td></tr>
+                        <tr><td>Row 6</td></tr>
+                    </tbody> 
+                </table>
+	    Color #1: <input id="color1" value="blue"> 
+                Color #2: <input id="color2" value="teal"> 
+                <input type="button" value="Click here" 
+                       onClick="setColors(document.getElementById('color1').value, 
+                           document.getElementById('color2').value);">           
+            </div>
+            <div>
+                <h3>Source code:</h3>
+                <h4>HTML:</h4>
+                <textarea class="source">
+<table id="singletable">
+    <tbody id="singletablebody"> 
+        <tr id="trtest"><td>Row 1</td></tr>
+        <tr><td>Row 2</td></tr>
+        <tr><td>Row 3</td></tr>
+        <tr><td>Row 4</td></tr>
+        <tr><td>Row 5</td></tr>
+        <tr><td>Row 6</td></tr>
+    </tbody> 
+</table>
+Color #1: <input id="color1" value="blue"> 
+Color #2: <input id="color2" value="teal"> 
+<input type="button" value="Click here" 
+       onClick="setColors(document.getElementById('color1').value, 
+           document.getElementById('color2').value);">  
+                </textarea>
+                <h4>Javascript:</h4>
+                <textarea class="source">            
+function setColors(color1, color2){
+    var colors  = [color1, color2];
+    var table   = document.getElementById('singletablebody');
+    var tr = table.getElementsByTagName("TR");
+    //while(tr){
+    //tr.style.backgroundColor =  'white';//colors[counter++ % 2];           
+    //  tr = tr.nextSibling;                        
+    //}
+    for(var i=0; i<tr.length; i++){
+        tr[i].style.backgroundColor = colors[i % 2];    
+    }   
+    
+    alert(color1 + color2);}
+            </textarea>
+        </div>
+
+    </div>
+</body>
+</html>

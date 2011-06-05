@@ -104,6 +104,15 @@ function clearList(){
    
 }
 
+function displayDate()
+{
+document.getElementById("showdate").innerHTML=Date();
+}
+
+/*---------------------------------------------------------------------------
+ *regular Ajax functions
+ */
+
 function ajaxFunction(){
     var ajaxRequest;  // The variable that makes Ajax possible!
 	
@@ -130,12 +139,15 @@ function ajaxFunction(){
             document.myForm.time.value = ajaxRequest.responseText;
         }
     }
+    //ajaxRequest.open("GET", "getFlikr.php?.servertime", true);
     ajaxRequest.open("GET", "servertime.php", true);
     ajaxRequest.send(null); 
 }
 
 
-
+/*-----------------------------------------------------------------------------*
+ * Flikr functions:
+ */
 
 
 function getFlikrPulicData(item){
@@ -163,8 +175,7 @@ function displayImages(data)
     var newcanvas = document.createElement('div');
     newcanvas.id = 'pupimages';
     document.getElementById('imageheader').appendChild(newcanvas);
-    //document.appendChild(newcanvas);    
-    
+
     jQuery.each(data.items, function(i,item){
         jQuery("<img/>").attr("src", item.media.m).appendTo("#pupimages");
         if ( i == 2 ) return false; //take only three images
@@ -175,8 +186,7 @@ function getFlikrAPIData(){
     var apiKey = '233d3164af0d4da4ac09816038a5315a';
     var url2 = 'http://api.flickr.com/services/feeds/photos_public.gne?id=63154520@N05&api_key=' + apiKey + '&format=json&jsoncallback=?';
                             
-    jQuery.getJSON( url2 , displayImagesAPI);
-    
+    jQuery.getJSON( url2 , displayImagesAPI);    
 }
 
 function displayImagesAPI(data)
@@ -198,9 +208,11 @@ function displayImagesAPI(data)
 
 
 
-function ajaxFunctionFlikr(item){
+function ajaxFunctionFlikr(){
     var ajaxRequest;  // The variable that makes Ajax possible!
+    var item = document.getElementById('searchPHP').value
     var seek = "param="+item;
+    var func = "func=getpics";
 	
     try{
         // Opera 8.0+, Firefox, Safari
@@ -226,7 +238,21 @@ function ajaxFunctionFlikr(item){
             document.getElementById('phpimages').innerHTML = ajaxRequest.responseText;
         }
     }
-    ajaxRequest.open("GET", "getFlikr.php?"+ seek, true);
+    ajaxRequest.open("GET", "getFlikr.php?"+ seek + "&"+func, true);
     ajaxRequest.send(null); 
+}
+function ajaxFunctionFlikrRest(){
+
+    var func = "gerRest"
+    var item = document.getElementById('searchPHP').value
+    
+    jQuery.get("getFlikr.php",{
+        func : func, 
+        param: item
+    },
+    function(data){
+        document.getElementById('Restoutput').value = data.toString();
+    });
+    
 }
 
