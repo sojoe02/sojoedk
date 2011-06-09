@@ -1,0 +1,220 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flikr/Google Maps mashup</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            @import "../css/sojoe_default.css";
+        </style>
+        <style type="text/css">
+            @import "../css/sojoe_default.css";
+            @import "../css/flikrcanvas.css";
+        </style>
+        <script type="text/javascript" src="../jsp/jquery-1.6.1.js">
+
+        </script>
+        <script type="text/javascript" src="jsp/advFlikr.js">
+
+        </script>
+
+        <script type="text/javascript"
+                src="http://maps.google.com/maps/api/js?sensor=true">
+        </script>
+
+    </head>
+    <body>
+        <div class="HP_title"><h1>Flikr/Google Maps mashup</h1></div>
+        <div class="main_menu">
+            <ol>
+                <li><a href="../index.html"> Index </a></li>
+                <li><a href="JavascriptExamples.html"> Javascript </a></li>
+                <!--                <li><a href="Q2.html"> Question2 </a></li>-->
+                <li><a href="AjaxSimple.html"> Ajax </a></li>
+                <li><a href="XMLDOM.html"> XML </a></li>
+                <li><a href="FlikrExamples.html"> Flikr </a></li>
+                <li><a href="FlikrGoogle.html"> Flikr and Gmaps </a></li>
+            </ol>
+        </div>
+        <div class="mainwindow"> 
+            <h2>Personal images containing geotags.</h2>
+            <div id="myGeoImages"></div>
+            <h3>Clicked image location map:</h3>
+            <div id="map_canvas" > </div>
+
+            <h2>Source Code listings for this page.</h2>
+            <h4>Java:</h4>
+            <textarea class="sourcesuperlong"> 
+var images = new Array();
+
+window.onload =ajaxFunctionFlikrMyGeoDataXML();
+
+function ajaxFunctionFlikrMyGeoDataXML(){
+
+    var func = "flikrMyGeoOutput";  
+        
+    jQuery.get("getFlikr.php",{
+        func : func
+    },
+    function(data){      
+        geoDataHandler(data);
+    });     
+}
+
+function getPhotoLocation(photoId){
+
+    var func = "flikrGeoLocation";  
+    
+    jQuery.get("getFlikr.php",{
+        func : func,
+        photoId : photoId
+    },
+    function(data){      
+        drawPhotoLocation(data);
+    });   
+}
+
+function geoDataHandler(data)
+{
+   
+    var XMLdoc = data;
+    images = XMLdoc.getElementsByTagName('photo');     
+    
+    for (i=0;i<images.length;i++)    {
+        var item = images[i];    
+        
+        jQuery("<img/>").attr({
+            //building the image:
+            src : 'http://farm' 
+            + item.getAttribute('farm') 
+            + '.static.flickr.com/'
+            +item.getAttribute('server') + '/'
+            +item.getAttribute('id') + '_'
+            +item.getAttribute('secret') + '.jpg',            
+            id : item.getAttribute('id') ,
+            //setting the class and title:
+            'class' : 'click',
+            title : 'Click to show location on map'
+        })
+        .appendTo("#myGeoImages");
+
+    } 
+    //when image is clicked get it's location on the map:
+    jQuery('.click').click(function(){
+        pos = this.id;
+        getPhotoLocation(pos);
+    });      
+    hovereffect();   
+}
+
+
+
+function drawPhotoLocation(data) {
+   
+    var XMLdata = data;
+    x = XMLdata.getElementsByTagName('location');
+    
+    var lat = x[0].getAttribute('latitude');
+    var lng = x[0].getAttribute('longitude');   
+    
+    var latlng = new google.maps.LatLng(lat,lng);
+                
+    var myOptions = {
+        zoom: 8,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+}
+
+
+
+
+function getFlikrAPIData(){
+    var apiKey = '233d3164af0d4da4ac09816038a5315a';
+    
+    var url2 = 'http://api.flickr.com/services/feeds/photos_public.gne?id=63154520@N05&api_key=' 
+    + apiKey 
+    + '&format=json&jsoncallback=?';
+                            
+    jQuery.getJSON( url2 , displayImagesAPI);    
+}
+
+function displayImagesAPI(data)
+{
+    var canvastemp = document.getElementById('apiimages');
+    
+    if (canvastemp != null)        {
+        canvastemp.parentNode.removeChild(canvastemp);
+    }
+    //document.getElementById('pupimages').parentNode.removeChild(child)    
+    var newcanvas = document.createElement('div');
+    newcanvas.id = 'apiimages';
+    document.getElementById('imageheader2').appendChild(newcanvas);
+    
+    jQuery.each(data.items, function(i,item){
+        jQuery("<img/>").attr("src", item.media.m).appendTo("#apiimages");
+    });
+}
+
+function hovereffect() {
+
+    jQuery("#myGeoImages > img").hover(function(){
+        jQuery(this).fadeTo("fast",0.6);
+     
+    },function(){
+        jQuery(this).fadeTo("fast",1.0);
+    });
+ 
+
+}
+            </textarea>     
+
+            <h4>PHP:</h4>
+            <textarea class="sourcesuperlong" > 
+function flikrGeoLocation() {
+    $Flickr = new Flickr;
+    $photolocation = $Flickr->getGeoTag($_GET['photoId']);
+    if ($photolocation != null) {
+        header("Content-type: text/xml");
+        echo $photolocation->asXML();
+    } else{
+        echo date("H:i:s");
+    }
+        
+}
+
+class Flickr {
+
+    private $apiKey = '233d3164af0d4da4ac09816038a5315a';
+
+    public function __construct() {
+        
+    }
+
+    public function searchGeo() {
+        $search = 'http://api.flickr.com/services/rest/?method=flickr.photos.getWithGeoData' .
+                '&api_key=6421bdf616129e2457c8df55a3b5b819' .
+                '&format=rest&auth_token=72157626916150836-fca7e1e00173913c'
+                . '&api_sig=39c3aef4c4e5171a554885b146f463f0';
+        $result = simplexml_load_file($search);
+        return $result;
+    }
+
+    public function getGeoTag($query = null) {
+        $search = 'http://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=6421bdf616129e2457c8df55a3b5b819'
+        .'&photo_id='.urlencode($query).'&format=rest';
+        $result = simplexml_load_file($search);
+        return $result;
+    }
+
+}
+            </textarea>   
+        </div>
+
+    </body>
+</html>

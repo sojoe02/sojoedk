@@ -29,7 +29,7 @@ and open the template in the editor.
                 <li><a href="AjaxSimple.html"> Ajax </a></li>
                 <li><a href="XMLDOM.html"> XML </a></li>
                 <li><a href="FlikrExamples.html"> Flikr </a></li>
-                <!--                <li><a href="Q6.html"> Question6 </a></li>-->
+                <li><a href="FlikrGoogle.html"> Flikr and Gmaps </a></li>
             </ol>
         </div>
         <div class="mainwindow"> 
@@ -40,12 +40,12 @@ and open the template in the editor.
                 <input id="subject" value="dog">
                 <input type="button" value="Get images (jQuery)" onClick= "getFlikrPulicData(document.getElementById('subject').value);">
             </div> 
-            
+
 
             <div id="imageheader"></div>
             <h3>Source Code:</h3>
-                <h4>Javascript:</h4>
-                <textarea class="sourcelong">           
+            <h4>Javascript:</h4>
+            <textarea class="sourcelong">           
 function getFlikrPulicData(item){
     var url = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
     //jQuery().getJSON(.getJSON("http://api.flickr.com/services/feeds/groups_pool.gne?id=998875@N22&lang=en-us&format=json&jsoncallback=?", displayImages);, displayImages);
@@ -77,10 +77,8 @@ function displayImages(data)
         if ( i == 2 ) return false; //take only three images
     });
 }
-                </textarea>     
-            <h3>Load personal images:</h3>
-            <input type="button" value="Load my Images" onClick= "getFlikrAPIData();">
-            <div id="imageheader2"></div>
+            </textarea>     
+
             <h2>Getting images from flikr via Ajax and PHP</h2>
             <form name='myFormPHP'>
                 Type in a search: <input type="text" id="searchPHP" value="dog" />
@@ -90,11 +88,12 @@ function displayImages(data)
             </form>
 
             <div id="phpimages"></div>
-            <textarea class="output" id="PHPoutput">   
-            </textarea>
-                        <h3>Source Code:</h3>
-                <h4>Javascript:</h4>
-                <textarea class="source"> 
+
+
+            <textarea class="output" id="PHPoutput"></textarea> 
+            <h3>Source Code:</h3>
+            <h4>Javascript:</h4>
+            <textarea class="sourcelong"> 
 function ajaxFunctionFlikr(){
     var ajaxRequest;  // The variable that makes Ajax possible!
     var item = document.getElementById('searchPHP').value
@@ -129,10 +128,10 @@ function ajaxFunctionFlikr(){
     ajaxRequest.send(null); 
 }       
 
-                </textarea>     
+            </textarea>     
 
-                <h4>PHP:</h4>
-                <textarea class="sourcelong" >           
+            <h4>PHP:</h4>
+            <textarea class="sourcelong" >           
 class Flickr {
 
     private $apiKey = '233d3164af0d4da4ac09816038a5315a';
@@ -171,19 +170,19 @@ function getPictures() {
         echo '<img src="http://farm' . $photo["farm"] . '.static.flickr.com/' . $photo["server"] . '/' . $photo["id"] . '_' . $photo["secret"] . '.jpg">';
     }
 }
-                </textarea>  
+            </textarea>  
             <h2>Printing out the REST response via Jquery and PHP:</h2>
             <form name='printJSON'>
                 Click to print the result in JSON:
                 <input type='button' value="Get imagedata" 
                        onClick="ajaxFunctionFlikrRest();" /> 
             </form>
-                        <textarea class="output" id="Restoutput">   
+            <textarea class="output" id="Restoutput">   
             </textarea>
-            
+
             <h3>Source Code:</h3>
-                <h4>Javascript:</h4>
-                <textarea class="source">           
+            <h4>Javascript:</h4>
+            <textarea class="source">           
 function ajaxFunctionFlikrRest(){
 
     var func = "gerRest"
@@ -198,17 +197,17 @@ function ajaxFunctionFlikrRest(){
     });
     
 }
-                </textarea>     
+            </textarea>     
 
-                <h4>PHP:</h4>
-                <textarea class="source">           
+            <h4>PHP:</h4>
+            <textarea class="source">           
 function flikrRestOutput() {
     echo date("H:i:s");
     $data = $GLOBALS['data'];
     echo json_encode($data);
 }
-                </textarea>  
-            
+            </textarea>  
+
 
         </div>
     </body>

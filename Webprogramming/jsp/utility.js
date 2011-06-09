@@ -78,9 +78,9 @@ function writeXML(title, tag){
     }
     var list = document.getElementById('testinglist');
     
-    xmlDoc = loadXMLDoc(title);
+    var xmlDoc = loadXMLDoc(title);
     //for(i=0; i<5; i++){    
-    x=xmlDoc.getElementsByTagName(tag);
+    var x=xmlDoc.getElementsByTagName(tag);
     
     for (i=0;i<x.length;i++)
     {         
@@ -106,7 +106,7 @@ function clearList(){
 
 function displayDate()
 {
-document.getElementById("showdate").innerHTML=Date();
+    document.getElementById("showdate").innerHTML=Date();
 }
 
 /*---------------------------------------------------------------------------
@@ -184,6 +184,7 @@ function displayImages(data)
 
 function getFlikrAPIData(){
     var apiKey = '233d3164af0d4da4ac09816038a5315a';
+    
     var url2 = 'http://api.flickr.com/services/feeds/photos_public.gne?id=63154520@N05&api_key=' + apiKey + '&format=json&jsoncallback=?';
                             
     jQuery.getJSON( url2 , displayImagesAPI);    
