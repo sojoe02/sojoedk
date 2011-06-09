@@ -1,14 +1,17 @@
 <?php
 
-//require_once('./flickr.php'); 
+//Flikr handler class, this class takes care of all the calls too flikr 
+//and flikrs callback values in various formats.
 class Flickr {
 
     private $apiKey = '233d3164af0d4da4ac09816038a5315a';
+    private $userID = '63154520%40N05';
 
     public function __construct() {
         
     }
 
+    //Searches through flikr and gets latest picture relevant to the query:
     public function search($query = null) {
         $search = 'http://flickr.com/services/rest/?method=flickr.photos.search&api_key='
                 . $this->apiKey
@@ -20,24 +23,29 @@ class Flickr {
         return $result;
     }
 
+    //Searches for pictures with gettags based on userID (mine) in XML:
     public function searchGeo() {
-        $search = 'http://api.flickr.com/services/rest/?method=flickr.photos.getWithGeoData' .
-                '&api_key=6421bdf616129e2457c8df55a3b5b819' .
-                '&format=rest&auth_token=72157626916150836-fca7e1e00173913c'
-                . '&api_sig=39c3aef4c4e5171a554885b146f463f0';
+        $search = 'http://api.flickr.com/services/rest/?method=flickr.photos.search'
+                . '&api_key=' . $this->apiKey . '&user_id='.$this->userID
+                .'&has_geo=yes&format=rest';
+
         $result = simplexml_load_file($search);
         return $result;
     }
 
+    //Gets the geotag information based on photo ID in XML:
     public function getGeoTag($query = null) {
-        $search = 'http://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=6421bdf616129e2457c8df55a3b5b819'
-        .'&photo_id='.urlencode($query).'&format=rest';
+
+        $search = 'http://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation'
+                . '&api_key=' . $this->apiKey
+                . '&photo_id=' . urlencode($query) . '&format=rest';
         $result = simplexml_load_file($search);
         return $result;
     }
 
 }
 
+//switch statements enabling javascript GET to define which function is to be used:
 switch ($_GET['func']) {
     case 'gerRest':
         flikrRestOutput();
@@ -73,12 +81,14 @@ function servertime() {
     echo date("H:i:s");
 }
 
+//echos search results in JSON format:
 function flikrRestOutput() {
     echo date("H:i:s");
     $data = $GLOBALS['data'];
     echo json_encode($data);
 }
 
+//echos all my photos with geotags in XML format:
 function flikrMyGeoOutput() {
     $Flickr = new Flickr;
     $myGeoData = $Flickr->searchGeo();
@@ -86,16 +96,16 @@ function flikrMyGeoOutput() {
     echo $myGeoData->asXML();
 }
 
+//echos geolocation data for specific photo in XML format:
 function flikrGeoLocation() {
     $Flickr = new Flickr;
     $photolocation = $Flickr->getGeoTag($_GET['photoId']);
     if ($photolocation != null) {
         header("Content-type: text/xml");
         echo $photolocation->asXML();
-    } else{
-        echo date("H:i:s");
+    } else {
+        echo date("faulty location XML file");
     }
-        
 }
 
 ?>
