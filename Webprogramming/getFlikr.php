@@ -79,8 +79,7 @@ function getPictures() {
         . $photo["server"] . '/'
         . $photo["id"] . '_'
         . $photo["secret"] . '.jpg">';
-    }
-    return $data;
+    }    
 }
 
 function servertime() {
@@ -90,8 +89,9 @@ function servertime() {
 //echos search results in JSON format:
 function flikrRestOutput() {
     echo date("H:i:s");
-    
-    echo json_encode(getPictures());
+    $Flickr = new Flickr;
+    $data = $Flickr->search($_GET['param']);
+    echo json_encode($data);
 }
 
 //echos all my photos with geotags in XML format:

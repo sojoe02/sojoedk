@@ -22,8 +22,10 @@ and open the template in the editor.
     <body>
         <div class="HP_title"><h1>XML handling</h1></div>
         <div class="main_menu">
-            <ol>
-                <li><a href="../index.html"> Index </a></li>
+            <ol class="menutop">
+                <li><a href="index.xhtml"> Webprog. start </a></li>
+            </ol>
+            <ol class="menumain">
                 <li><a href="JavascriptExamples.html"> Javascript </a></li>
                 <!--                <li><a href="Q2.html"> Question2 </a></li>-->
                 <li><a href="AjaxSimple.html"> Ajax </a></li>
@@ -37,8 +39,8 @@ and open the template in the editor.
             Type in the path to the XML you want to load: 
             <input id="file" value="books.xml">  
             <input id="taginput" value="title">
-                   <input type="button" value="Print Titles" onClick= "writeXML(document.getElementById('file').value,
-                       document.getElementById('taginput').value);">
+            <input type="button" value="Print Titles" onClick= "writeXML(document.getElementById('file').value,
+                document.getElementById('taginput').value);">
             <div id="testing"></div>
 
             <ul id="testinglist">
@@ -105,9 +107,9 @@ function writeXML(title, tag){
         list.appendChild(newitem);
     }   
 }
-            </textarea>
-                        <h5>Clearing the list and heading:</h5>
-            <textarea class="source">         
+        </textarea>
+        <h5>Clearing the list and heading:</h5>
+        <textarea class="source">         
 function clearList(){
     var list = document.getElementById('testinglist');
     var x = list.childNodes;
@@ -121,7 +123,7 @@ function clearList(){
     heading.parentNode.removeChild(heading);   
    
 }
-            </textarea>
-        </div>
-    </body>
+        </textarea>
+    </div>
+</body>
 </html>

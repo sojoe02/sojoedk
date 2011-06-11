@@ -82,9 +82,9 @@ function drawPhotoLocation(data) {
     var latlng = new google.maps.LatLng(lat,lng);
                 
     var myOptions = {
-        zoom: 15,
+        zoom: 10,
         center: latlng,
-        mapTypeId: google.maps.MapTypeId.HYBRID
+        mapTypeId: google.maps.MapTypeId.TERRAIN
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
