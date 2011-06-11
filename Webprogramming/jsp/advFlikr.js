@@ -107,7 +107,7 @@ function hovereffect() {
  
 
 }
-window.onload = ajaxFunctionFlikrMyGeoDataXML();
+
 
 
 //function getFlikrAPIData(){

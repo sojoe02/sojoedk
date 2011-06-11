@@ -45,6 +45,9 @@ class Flickr {
 
 }
 
+//Declaring some globals:
+
+
 //switch statements enabling javascript GET to define which function is to be used:
 switch ($_GET['func']) {
     case 'gerRest':
@@ -62,11 +65,13 @@ switch ($_GET['func']) {
     default:
 }
 
+
+//Declaring the functions.
 function getPictures() {
+    
     $Flickr = new Flickr;
     $data = $Flickr->search($_GET['param']);
-
-
+    /* @var $shareData type */
     foreach ($data['photos']['photo'] as $photo) {
         // the image URL becomes somthing like 
         // http://farm{farm-id}.static.flickr.com/{server-id}/{id}_{secret}.jpg  
@@ -75,6 +80,7 @@ function getPictures() {
         . $photo["id"] . '_'
         . $photo["secret"] . '.jpg">';
     }
+    return $data;
 }
 
 function servertime() {
@@ -84,8 +90,8 @@ function servertime() {
 //echos search results in JSON format:
 function flikrRestOutput() {
     echo date("H:i:s");
-    $data = $GLOBALS['data'];
-    echo json_encode($data);
+    
+    echo json_encode(getPictures());
 }
 
 //echos all my photos with geotags in XML format:
