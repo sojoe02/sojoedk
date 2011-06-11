@@ -35,7 +35,9 @@ function removeContact(tr){
     tr.parentNode.removeChild(tr);
 }
 
-function setColors(color1, color2){
+function setColors(){
+    color1 = document.getElementById('color1').value;
+    color2 = document.getElementById('color2').value;
     var colors  = [color1, color2];
     var table   = document.getElementById('singletablebody');
     var tr = table.getElementsByTagName("TR");
@@ -136,7 +138,7 @@ function ajaxFunction(){
     // Create a function that will receive data sent from the server
     ajaxRequest.onreadystatechange = function(){
         if(ajaxRequest.readyState == 4){
-            document.myForm.time.value = ajaxRequest.responseText;
+            document.getElementById('time').value = ajaxRequest.responseText;
         }
     }
     //ajaxRequest.open("GET", "getFlikr.php?.servertime", true);

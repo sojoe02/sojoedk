@@ -8,12 +8,11 @@
 
 /* 
    TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2.1/
 */
 
 
-body
-{
+body{
     background-color: aliceblue;
     font-size : 100%
 }
@@ -28,18 +27,20 @@ body
 }
 
 .main_menu {
-    /*background-color:  #99ccff;  */
-    font-size: 85%;
+    background-color:  cadetblue;  
+    font-size: 0.7em;
     font-family: sans-serif;
     font-weight:bold;
     float : left;
     padding-right:10px;
     padding-left:00px;
     margin-left: 10px;
-    margin-top: -1.2em;
+    margin-top: 2.5em;
     width:130px;
+    border: 3px solid;
     border-color : #99ccff;
-    position:fixed;
+    position : fixed;
+    
 }
 
 .menumain{
@@ -52,20 +53,16 @@ body
     text-decoration:none;
     margin-left: -25px;
     padding:5px 0; 
-    padding-left:  0;
-    
-    
+    padding-left:  0;    
 }
 
 .menumain li:hover{
-    background: #99ccff;       
-    /*color:#000;*/
+    background: aliceblue;       
 }
 
 
 .menutop{
-    background-color: #99ccff;
-}
+    /*background-color: #99ccff;*/}
 
 .menutop li{
     list-style: none;
@@ -73,15 +70,12 @@ body
     text-decoration:none;
     margin-left: -25px;
     padding:5px 0;  
-    padding-left:  0;
-    /*height : 1.5em;*/
+    /*padding-left:  0;*/
 }
 
 .menutop li:hover{
-    background: cadetblue;       
+    background: aliceblue;       
 }
-
-
 
 
 .main_menu a:link {

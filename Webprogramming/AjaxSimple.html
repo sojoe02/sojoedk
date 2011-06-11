@@ -1,7 +1,3 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,7 +15,7 @@ and open the template in the editor.
         <div class="HP_title"><h1>Calling server functions with Ajax</h1></div>
         <div class="main_menu">
             <ol class="menutop">
-                <li><a href="index.xhtml"> Webprog. start </a></li>
+                <li><a href="index.xhtml"> Webprogramming start </a></li>
             </ol>
             <ol class="menumain">
                 <li><a href="JavascriptExamples.html"> Javascript </a></li>
@@ -33,15 +29,18 @@ and open the template in the editor.
         <div class="mainwindow"> 
             <div><h2>Getting Servertime via Ajax</h2></div>
             <div>
-                <form name='myForm'>
-                    <input type='button' value="Call Servertime" onClick="ajaxFunction();" /> <br />
-                    Time: <input type='text' name='time' />
+                <form id="myForm" action="">
+                    <div><input type='button' value="Call Servertime" onClick="ajaxFunction();">
+                    <br>
+                    Time: <input type="text" id="time">
+                    </div>
                 </form>
             </div>
             <div>
                 <h3>Source Code:</h3>
                 <h4>Javascript:</h4>
-                <textarea class="source">           
+                
+                <textarea class="source" rows="20" cols="80">           
 function ajaxFunction(){
 	var ajaxRequest;  // The variable that makes Ajax possible!
 	
@@ -71,10 +70,10 @@ function ajaxFunction(){
 	ajaxRequest.open("GET", "servertime.php", true);
 	ajaxRequest.send(null); 
 }
-                </textarea>     
+                </textarea>    
 
                 <h4>PHP:</h4>
-                <textarea class="sourceshort">           
+                <textarea class="sourceshort" rows="20" cols="80">           
 <?php
 echo date("H:i:s");
 ?>

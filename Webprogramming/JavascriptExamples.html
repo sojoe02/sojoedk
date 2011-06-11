@@ -1,7 +1,3 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +9,7 @@ and open the template in the editor.
         <script type="text/javascript" src="jsp/utility.js">
 
         </script>
-                <script type="text/javascript" src="jsp/events.js">
+        <script type="text/javascript" src="jsp/events.js">
 
         </script>
     </head>
@@ -21,7 +17,7 @@ and open the template in the editor.
         <div class="HP_title"><h1>Javascript manipulation</h1></div>
         <div class="main_menu">
             <ol class="menutop">
-                <li><a href="index.xhtml"> Webprog. start </a></li>
+                <li><a href="index.xhtml"> Webprogramming start </a></li>
             </ol>
             <ol class="menumain">
                 <li><a href="JavascriptExamples.html"> Javascript </a></li>
@@ -52,13 +48,13 @@ and open the template in the editor.
             </div>
             <div><h2>Simple mouse-over manipulation using javascript events:</h2></div>
             <div id="imageJS"> </div>
-             <h3>Source Code:</h3>
-             <h4>Html:</h4>
-             <textarea class="sourceshort">         
+            <h3>Source Code:</h3>
+            <h4>Html:</h4>
+            <textarea class="sourceshort">         
 <div id="imageJS"> </div>
-                </textarea>
-             <h4>Javascript:</h4>
-                <textarea class="sourcelong">         
+            </textarea>
+            <h4>Javascript:</h4>
+            <textarea class="sourcelong">         
   window.onload = load;
 
 function loadimage(item){
@@ -102,16 +98,16 @@ function load() {
     el.addEventListener("mouseout", function(){
         loadimage('nonhoover')
     }, false);
-                </textarea>
-            
-            
-            
- <div><h2>Printing out the date:</h2></div>
+            </textarea>
+
+
+
+            <div><h2>Printing out the date:</h2></div>
             <button type="button" onclick="displayDate()">Display Date</button>
             <div id="showdate">   
             </div>
-           
-                        <h3>Source Code:</h3>
+
+            <h3>Source Code:</h3>
             <h4>Javascript:</h4>
             <textarea class="sourceshort" >         
 function displayDate()
@@ -188,8 +184,7 @@ function removeContact(tr){
 	    Color #1: <input id="color1" value="blue"> 
                 Color #2: <input id="color2" value="teal"> 
                 <input type="button" value="Click here" 
-                       onClick="setColors(document.getElementById('color1').value, 
-                           document.getElementById('color2').value);">           
+                       onClick="setColors();">           
             </div>
             <div>
                 <h3>Source code:</h3>
@@ -208,12 +203,13 @@ function removeContact(tr){
 Color #1: <input id="color1" value="blue"> 
 Color #2: <input id="color2" value="teal"> 
 <input type="button" value="Click here" 
-       onClick="setColors(document.getElementById('color1').value, 
-           document.getElementById('color2').value);">  
+       onClick="setColors();">  
                 </textarea>
                 <h4>Javascript:</h4>
                 <textarea class="source">            
-function setColors(color1, color2){
+function setColors(){
+    color1 = document.getElementById('color1').value;
+    color2 = document.getElementById('color2').value;
     var colors  = [color1, color2];
     var table   = document.getElementById('singletablebody');
     var tr = table.getElementsByTagName("TR");
