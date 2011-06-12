@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Changing Style Demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            @import "../css/sojoe_default.css";
+        </style>
+        <script type="text/javascript" src="jsp/stylehandler.js">
+
+        </script>
+
+    </head>
+    <body>
+        <div class="HP_title"><h1>Changing of styles</h1></div>
+        <div class="main_menu">
+            <ol class="menutop">
+                <li><a href="index.xhtml"> Webprogramming start </a></li>
+            </ol>
+            <ol class="menumain">
+                <li><a href="JavascriptExamples.html"> Javascript </a></li>
+                <li><a href="Styledemo.html"> Styles </a></li>
+                <li><a href="AjaxSimple.html"> Ajax </a></li>
+                <li><a href="XMLDOM.html"> XML </a></li>
+                <li><a href="FlikrExamples.html"> Flikr </a></li>
+                <li><a href="FlikrGoogle.html"> Flikr and Gmaps </a></li>
+            </ol>
+        </div>
+        <div class="mainwindow" id="mainwindow"> 
+            <div>
+                <form id="myForm" action="">
+                    <div>
+                        Push button to change background:
+                        <input type='button' value="Change Color" onClick="demo();">
+                    </div>
+                </form>
+            </div>
+            <textarea class="source"> 
+var tmp = 1;
+
+function demo()
+{    
+    if (tmp == 1){
+        document.body.style.backgroundColor = 'blanchedalmond';        
+        tmp = 0;
+    } else{
+        document.body.style.backgroundColor = 'aliceblue';
+        tmp = 1;
+    }    
+}
+            </textarea>    
+            <div><h2>Manipulating a tables styling</h2></div>
+            <div> 
+                <table id="singletable">
+                    <tbody id="singletablebody"> 
+                        <tr id="trtest"><td>Row 1</td></tr>
+                        <tr><td>Row 2</td></tr>
+                        <tr><td>Row 3</td></tr>
+                        <tr><td>Row 4</td></tr>
+                        <tr><td>Row 5</td></tr>
+                        <tr><td>Row 6</td></tr>
+                    </tbody> 
+                </table>
+	    Color #1: <input id="color1" value="blue"> 
+                Color #2: <input id="color2" value="teal"> 
+                <input type="button" value="Click here" 
+                       onClick="setColors();">           
+            </div>
+            <div>
+                <h3>Source code:</h3>
+                <h4>HTML:</h4>
+                <textarea class="source">
+<table id="singletable">
+    <tbody id="singletablebody"> 
+        <tr id="trtest"><td>Row 1</td></tr>
+        <tr><td>Row 2</td></tr>
+        <tr><td>Row 3</td></tr>
+        <tr><td>Row 4</td></tr>
+        <tr><td>Row 5</td></tr>
+        <tr><td>Row 6</td></tr>
+    </tbody> 
+</table>
+Color #1: <input id="color1" value="blue"> 
+Color #2: <input id="color2" value="teal"> 
+<input type="button" value="Click here" 
+       onClick="setColors();">  
+                </textarea>
+                <h4>Javascript:</h4>
+                <textarea class="source">            
+function setColors(){
+    color1 = document.getElementById('color1').value;
+    color2 = document.getElementById('color2').value;
+    var colors  = [color1, color2];
+    var table   = document.getElementById('singletablebody');
+    var tr = table.getElementsByTagName("TR");
+    //while(tr){
+    //tr.style.backgroundColor =  'white';//colors[counter++ % 2];           
+    //  tr = tr.nextSibling;                        
+    //}
+    for(var i=0; i<tr.length; i++){
+        tr[i].style.backgroundColor = colors[i % 2];    
+    }   
+    
+    alert(color1 + color2);}
+            </textarea>
+        </div>
+    </div>
+</body>
+</html>

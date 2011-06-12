@@ -42,11 +42,7 @@ class Flickr {
         $result = simplexml_load_file($search);
         return $result;
     }
-
 }
-
-//Declaring some globals:
-
 
 //switch statements enabling javascript GET to define which function is to be used:
 switch ($_GET['func']) {
@@ -88,7 +84,6 @@ function servertime() {
 
 //echos search results in JSON format:
 function flikrRestOutput() {
-    echo date("H:i:s");
     $Flickr = new Flickr;
     $data = $Flickr->search($_GET['param']);
     echo json_encode($data);
@@ -113,5 +108,4 @@ function flikrGeoLocation() {
         echo date("faulty location XML file");
     }
 }
-
 ?>

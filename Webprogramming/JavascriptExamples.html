@@ -21,13 +21,13 @@
             </ol>
             <ol class="menumain">
                 <li><a href="JavascriptExamples.html"> Javascript </a></li>
-                <!--                <li><a href="Q2.html"> Question2 </a></li>-->
+                <li><a href="Styledemo.html"> Styles </a></li>
                 <li><a href="AjaxSimple.html"> Ajax </a></li>
                 <li><a href="XMLDOM.html"> XML </a></li>
                 <li><a href="FlikrExamples.html"> Flikr </a></li>
                 <li><a href="FlikrGoogle.html"> Flikr and Gmaps </a></li>
             </ol>
-        </div>        
+        </div>
         <div class="mainwindow">        
             <div><h2>Simple mouse-over manipulation (BAD FORM):</h2></div>
             <img src="img/p6_button1.gif"
@@ -169,61 +169,7 @@ function removeContact(tr){
                 }
                 </textarea>
             </div>
-            <div><h2>Manipulating a tables styling via the DOM:</h2></div>
-            <div> 
-                <table id="singletable">
-                    <tbody id="singletablebody"> 
-                        <tr id="trtest"><td>Row 1</td></tr>
-                        <tr><td>Row 2</td></tr>
-                        <tr><td>Row 3</td></tr>
-                        <tr><td>Row 4</td></tr>
-                        <tr><td>Row 5</td></tr>
-                        <tr><td>Row 6</td></tr>
-                    </tbody> 
-                </table>
-	    Color #1: <input id="color1" value="blue"> 
-                Color #2: <input id="color2" value="teal"> 
-                <input type="button" value="Click here" 
-                       onClick="setColors();">           
-            </div>
-            <div>
-                <h3>Source code:</h3>
-                <h4>HTML:</h4>
-                <textarea class="source">
-<table id="singletable">
-    <tbody id="singletablebody"> 
-        <tr id="trtest"><td>Row 1</td></tr>
-        <tr><td>Row 2</td></tr>
-        <tr><td>Row 3</td></tr>
-        <tr><td>Row 4</td></tr>
-        <tr><td>Row 5</td></tr>
-        <tr><td>Row 6</td></tr>
-    </tbody> 
-</table>
-Color #1: <input id="color1" value="blue"> 
-Color #2: <input id="color2" value="teal"> 
-<input type="button" value="Click here" 
-       onClick="setColors();">  
-                </textarea>
-                <h4>Javascript:</h4>
-                <textarea class="source">            
-function setColors(){
-    color1 = document.getElementById('color1').value;
-    color2 = document.getElementById('color2').value;
-    var colors  = [color1, color2];
-    var table   = document.getElementById('singletablebody');
-    var tr = table.getElementsByTagName("TR");
-    //while(tr){
-    //tr.style.backgroundColor =  'white';//colors[counter++ % 2];           
-    //  tr = tr.nextSibling;                        
-    //}
-    for(var i=0; i<tr.length; i++){
-        tr[i].style.backgroundColor = colors[i % 2];    
-    }   
-    
-    alert(color1 + color2);}
-            </textarea>
-        </div>
+            
 
     </div>
 </body>

@@ -35,23 +35,6 @@ function removeContact(tr){
     tr.parentNode.removeChild(tr);
 }
 
-function setColors(){
-    color1 = document.getElementById('color1').value;
-    color2 = document.getElementById('color2').value;
-    var colors  = [color1, color2];
-    var table   = document.getElementById('singletablebody');
-    var tr = table.getElementsByTagName("TR");
-    //while(tr){
-    //tr.style.backgroundColor =  'white';//colors[counter++ % 2];           
-    //  tr = tr.nextSibling;                        
-    //}
-    for(var i=0; i<tr.length; i++){
-        tr[i].style.backgroundColor = colors[i % 2];    
-    }   
-    
-//alert(color1 + color2);
-}
-
 function loadXMLDoc(dname)
 {
     if (window.XMLHttpRequest)

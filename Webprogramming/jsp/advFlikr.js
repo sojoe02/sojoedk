@@ -107,32 +107,3 @@ function hovereffect() {
  
 
 }
-
-
-
-//function getFlikrAPIData(){
-//    var apiKey = '233d3164af0d4da4ac09816038a5315a';
-//    
-//    var url2 = 'http://api.flickr.com/services/feeds/photos_public.gne?id=63154520@N05&api_key=' 
-//    + apiKey 
-//    + '&format=json&jsoncallback=?';
-//                            
-//    jQuery.getJSON( url2 , displayImagesAPI);    
-//}
-//
-//function displayImagesAPI(data)
-//{
-//    var canvastemp = document.getElementById('apiimages');
-//    
-//    if (canvastemp != null)        {
-//        canvastemp.parentNode.removeChild(canvastemp);
-//    }
-//    //document.getElementById('pupimages').parentNode.removeChild(child)    
-//    var newcanvas = document.createElement('div');
-//    newcanvas.id = 'apiimages';
-//    document.getElementById('imageheader2').appendChild(newcanvas);
-//    
-//    jQuery.each(data.items, function(i,item){
-//        jQuery("<img/>").attr("src", item.media.m).appendTo("#apiimages");
-//    });
-//}
